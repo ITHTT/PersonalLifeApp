@@ -18,6 +18,8 @@
         </activity>
 
         <activity android:name=".activitys.RegisterActivity"/>
+
+        <activity android:name=".activitys.LoginActivity"/>
     </application>
 
 </manifest>
