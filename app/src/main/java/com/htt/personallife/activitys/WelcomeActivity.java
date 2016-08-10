@@ -21,6 +21,8 @@ public class WelcomeActivity extends BaseActivity{
 
     @Override
     protected void initViews() {
+        this.findViewById(R.id.root_view).setBackgroundResource(R.mipmap.icon_welcome);
+        contentContainer.setBackgroundResource(android.R.color.transparent);
         hideTitleBar();
         hideLoading();
     }

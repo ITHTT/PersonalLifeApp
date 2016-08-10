@@ -61,6 +61,12 @@ public abstract class BaseActivity extends AppCompatActivity{
             ButterKnife.bind(this,view);
             contentContainer.addView(view);
         }
+        titleBar.setTitleBarLeftIcon(R.mipmap.icon_back, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back();
+            }
+        });
     }
 
     @Override
@@ -121,6 +127,10 @@ public abstract class BaseActivity extends AppCompatActivity{
      */
     protected void setTitle(String title){
         titleBar.setTitleBarTitle(title);
+    }
+
+    protected void back(){
+        finish();
     }
 
     protected void hideTitleBar(){
