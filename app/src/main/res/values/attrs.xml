@@ -13,4 +13,9 @@
         <attr name="cpv_animSteps" format="integer" />
         <attr name="cpv_startAngle" format="float" />
     </declare-styleable>
+
+    <declare-styleable name="MenuTabView">
+        <attr name="tab_name" format="string"/>
+        <attr name="tab_icon" format="reference"/>
+    </declare-styleable>
 </resources>

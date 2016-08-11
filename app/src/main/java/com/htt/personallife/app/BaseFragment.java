@@ -1,9 +1,10 @@
 package com.htt.personallife.app;
 
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -14,7 +15,6 @@ import com.htt.personallife.R;
 import com.htt.personallife.modles.event.EventObject;
 import com.htt.personallife.modles.event.EventType;
 import com.htt.personallife.views.widgets.LoadingLayout;
-import com.htt.personallife.views.widgets.TitleBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,90 +23,64 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.ButterKnife;
 
 /**
- * Created by HTT on 2016/8/7.
+ * Created by Administrator on 2016/8/11.
  */
-public abstract class BaseActivity extends AppCompatActivity{
+public abstract class BaseFragment extends Fragment{
     protected final String TAG=this.getClass().getSimpleName();
-
-    protected TitleBar titleBar;
-    protected LoadingLayout loadingLayout;
+    protected Activity baseActivity;
     protected ViewGroup contentContainer;
+    protected LoadingLayout loadingLayout;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        baseActivity= (Activity) context;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(!isCanceledEventBus()){
             EventBus.getDefault().register(this);
         }
-        initBaseView();
-        initViews(savedInstanceState);
-        if(getIntent()!=null){
-            getIntentData(getIntent());
-        }
-        handleInstanceState(savedInstanceState);
-    }
-
-    /**
-     * 初始化默认的视图布局
-     */
-    protected void initBaseView(){
-        setContentView(R.layout.activity_base_layout);
-        titleBar= (TitleBar) this.findViewById(R.id.title_bar);
-        loadingLayout=(LoadingLayout)this.findViewById(R.id.layout_loading);
-        loadingLayout.hideLoad();
-        contentContainer= (ViewGroup) this.findViewById(R.id.layout_content_container);
-        View view= LayoutInflater.from(this).inflate(getContentViewId(),null);
-        if(view!=null){
-            ButterKnife.bind(this,view);
-            contentContainer.addView(view);
-        }
-        titleBar.setTitleBarLeftIcon(R.mipmap.icon_back, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                back();
-            }
-        });
+        View view=inflater.inflate(R.layout.fragment_base_layout,container,false);
+        initDefaultView(view);
+        return view;
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-        saveInstanceState(outState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initViews(view,savedInstanceState);
+    }
+
+    protected void initDefaultView(View view){
+        contentContainer= (ViewGroup) view.findViewById(R.id.layout_content_container);
+        loadingLayout= (LoadingLayout) view.findViewById(R.id.layout_loading);
+        loadingLayout.hideLoad();
+        View contentView=LayoutInflater.from(baseActivity).inflate(getContentViewId(),null);
+        if(contentView!=null){
+            ButterKnife.bind(this,contentView);
+            contentContainer.addView(contentView);
+        }
     }
 
     /**
-     * 页面布局的ID
-     * @return
+     * 获取布局ID
      */
     protected abstract int getContentViewId();
 
     /**
      * 初始化控件
      */
-    protected abstract void initViews(Bundle outState);
+    protected abstract void initViews(View view, Bundle savedInstanceState);
 
     /**
      * 是否取消EventBus
      * @return
      */
     protected abstract boolean isCanceledEventBus();
-
-    /**
-     * 获取Intent中的数据
-     */
-    protected abstract void getIntentData(Intent intent);
-
-    /**
-     * 保存异常时的数据
-     */
-    protected abstract void saveInstanceState(Bundle outState);
-
-    /**
-     * 处理异常时的情况
-     */
-    protected abstract void handleInstanceState(Bundle outState);
 
     /**
      * eventbus消息接收
@@ -120,22 +94,6 @@ public abstract class BaseActivity extends AppCompatActivity{
      * @param data
      */
     protected abstract void notifyEvent(String action, Bundle data);
-
-    /**
-     * 设置标题
-     * @param title
-     */
-    protected void setTitle(String title){
-        titleBar.setTitleBarTitle(title);
-    }
-
-    protected void back(){
-        finish();
-    }
-
-    protected void hideTitleBar(){
-        titleBar.setVisibility(View.GONE);
-    }
 
     protected void showLoading(){
         loadingLayout.showLoading();
@@ -217,11 +175,11 @@ public abstract class BaseActivity extends AppCompatActivity{
         {
             notifyEvent(action);
         }
-
     }
 
+
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         if(!isCanceledEventBus()){
             EventBus.getDefault().unregister(this);

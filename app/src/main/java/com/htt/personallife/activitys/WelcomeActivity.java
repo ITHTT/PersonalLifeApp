@@ -20,11 +20,10 @@ public class WelcomeActivity extends BaseActivity{
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews(Bundle outState) {
         this.findViewById(R.id.root_view).setBackgroundResource(R.mipmap.icon_welcome);
         contentContainer.setBackgroundResource(android.R.color.transparent);
         hideTitleBar();
-        hideLoading();
     }
 
     @Override
@@ -60,6 +59,12 @@ public class WelcomeActivity extends BaseActivity{
     @OnClick(R.id.bt_register)
     protected void userRegister(View view){
         Intent intent=new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.bt_login)
+    protected void userLogin(View view){
+        Intent intent=new Intent(this,LoginActivity.class);
         startActivity(intent);
     }
 }

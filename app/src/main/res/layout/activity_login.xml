@@ -120,10 +120,6 @@
         android:layout_marginTop="30dp"
         android:textSize="14sp"
         android:textColor="@color/colorWhite"
-        android:text="注册"
+        android:text="登录"
         android:background="@drawable/btn_green_selector"/>
-
-
-
-
 </LinearLayout>

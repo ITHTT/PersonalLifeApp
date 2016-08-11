@@ -38,9 +38,8 @@ public class RegisterActivity extends BaseActivity{
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews(Bundle outState) {
         setTitle("手机注册");
-        hideLoading();
     }
 
     @Override
