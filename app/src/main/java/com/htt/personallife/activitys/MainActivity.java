@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     protected void initViews(Bundle outState) {
         titleBar.setTitleBarLeftIcon(0,null);
         setSelectedMenuTab(R.id.tab_message);
-        titleBar.setRightMenuIcon(R.mipmap.icon_add,this);
+        titleBar.setRightMenuIcon(R.mipmap.icon_add_item,this);
     }
 
     @Override

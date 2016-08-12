@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.htt.emoticonskeyboard.XhsEmoticonsKeyBoard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:id="@+id/lv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:fitsSystemWindows="true"
+        android:listSelector="#00000000"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true"
+        android:stackFromBottom="true" />
+</com.htt.emoticonskeyboard.XhsEmoticonsKeyBoard>
