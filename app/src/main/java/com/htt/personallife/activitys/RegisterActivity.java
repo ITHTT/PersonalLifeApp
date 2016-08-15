@@ -10,9 +10,11 @@ import android.widget.ImageView;
 
 import com.htt.personallife.R;
 import com.htt.personallife.app.BaseActivity;
+import com.htt.personallife.views.multiphotopicker.ui.activitys.PhotoPickerActivity;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 import butterknife.OnFocusChange;
 
 /**
@@ -97,6 +99,13 @@ public class RegisterActivity extends BaseActivity{
     protected void OnShowPasswordChecked(CompoundButton view,boolean isChecked){
         etUserPassword.setTransformationMethod(!isChecked ? PasswordTransformationMethod.getInstance() : null);
         etUserPassword.setSelection(etUserPassword.getText().toString().length());
+    }
+
+    @OnClick(R.id.iv_user_header)
+    protected void onClickSelectPhoto(View view){
+        Intent intent=new Intent(this, PhotoPickerActivity.class);
+        intent.putExtra("max_photo_counts", 1);
+        startActivityForResult(intent, 0x0001);
     }
 
 }
