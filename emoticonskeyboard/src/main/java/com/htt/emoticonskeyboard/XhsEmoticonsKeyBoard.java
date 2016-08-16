@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+
 import com.htt.emoticonskeyboard.adpater.PageSetAdapter;
 import com.htt.emoticonskeyboard.data.PageSetEntity;
 import com.htt.emoticonskeyboard.utils.EmoticonsKeyboardUtils;
@@ -27,6 +28,7 @@ import com.htt.emoticonskeyboard.widget.EmoticonsToolBarView;
 import com.htt.emoticonskeyboard.widget.FuncLayout;
 
 import java.util.ArrayList;
+
 
 public class XhsEmoticonsKeyBoard extends AutoHeightLayout implements View.OnClickListener, EmoticonsFuncView.OnEmoticonsPageViewListener,
         EmoticonsToolBarView.OnToolBarItemClickListener, EmoticonsEditText.OnBackKeyClickListener, FuncLayout.OnFuncChangeListener {
@@ -139,6 +141,9 @@ public class XhsEmoticonsKeyBoard extends AutoHeightLayout implements View.OnCli
             ArrayList<PageSetEntity> pageSetEntities = pageSetAdapter.getPageSetEntityList();
             if (pageSetEntities != null) {
                 for (PageSetEntity pageSetEntity : pageSetEntities) {
+                    if(mEmoticonsToolBarView.containsKey(pageSetEntity)) {
+                        continue;
+                    }
                     mEmoticonsToolBarView.addToolItemView(pageSetEntity);
                 }
             }

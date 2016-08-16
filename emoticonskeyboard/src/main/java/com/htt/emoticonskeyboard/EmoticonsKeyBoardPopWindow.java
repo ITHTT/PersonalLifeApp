@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 
+
 import com.htt.emoticonskeyboard.adpater.PageSetAdapter;
 import com.htt.emoticonskeyboard.data.PageSetEntity;
 import com.htt.emoticonskeyboard.utils.EmoticonsKeyboardUtils;
@@ -44,7 +45,7 @@ public class EmoticonsKeyBoardPopWindow extends PopupWindow implements Emoticons
     }
 
     private void updateView(View view) {
-        mEmoticonsFuncView = (EmoticonsFuncView) view.findViewById(R.id.view_epv);
+        mEmoticonsFuncView = ((EmoticonsFuncView) view.findViewById(R.id.view_epv));
         mEmoticonsIndicatorView = (EmoticonsIndicatorView) view.findViewById(R.id.view_eiv);
         mEmoticonsToolBarView = (EmoticonsToolBarView) view.findViewById(R.id.view_etv);
         mEmoticonsFuncView.setOnIndicatorListener(this);

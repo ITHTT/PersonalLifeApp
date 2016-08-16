@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+
 import com.htt.emoticonskeyboard.R;
 import com.htt.emoticonskeyboard.data.PageSetEntity;
 import com.htt.emoticonskeyboard.utils.EmoticonsKeyboardUtils;

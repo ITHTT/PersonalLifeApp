@@ -14,6 +14,7 @@ import com.htt.emoticonskeyboard.utils.EmoticonsKeyboardUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class FuncLayout extends LinearLayout {
 
     public final int DEF_KEY = Integer.MIN_VALUE;

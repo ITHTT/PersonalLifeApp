@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+
 import com.htt.emoticonskeyboard.R;
 import com.htt.emoticonskeyboard.data.EmoticonPageEntity;
 import com.htt.emoticonskeyboard.interfaces.EmoticonClickListener;

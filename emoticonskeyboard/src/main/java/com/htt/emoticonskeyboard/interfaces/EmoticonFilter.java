@@ -1,6 +1,5 @@
 package com.htt.emoticonskeyboard.interfaces;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -29,7 +28,6 @@ public abstract class EmoticonFilter {
         return null;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static Drawable getDrawable(Context context, String emojiName) {
         if(TextUtils.isEmpty(emojiName)){
             return null;
@@ -51,7 +49,6 @@ public abstract class EmoticonFilter {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static Drawable getDrawable(Context context, int emoticon) {
         if(emoticon <= 0){
             return null;
