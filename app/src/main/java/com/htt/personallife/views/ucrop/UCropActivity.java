@@ -13,10 +13,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -36,6 +33,7 @@ import com.htt.personallife.views.ucrop.view.TransformImageView;
 import com.htt.personallife.views.ucrop.view.UCropView;
 import com.htt.personallife.views.ucrop.view.widget.AspectRatioTextView;
 import com.htt.personallife.views.ucrop.view.widget.HorizontalProgressWheelView;
+import com.htt.personallife.views.widgets.TitleBar;
 
 import java.io.OutputStream;
 import java.lang.annotation.Retention;
@@ -46,7 +44,7 @@ import java.util.List;
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
  */
-public class UCropActivity extends AppCompatActivity {
+public class UCropActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final int DEFAULT_COMPRESS_QUALITY = 90;
     public static final Bitmap.CompressFormat DEFAULT_COMPRESS_FORMAT = Bitmap.CompressFormat.JPEG;
@@ -81,6 +79,8 @@ public class UCropActivity extends AppCompatActivity {
     private List<ViewGroup> mCropAspectRatioViews = new ArrayList<>();
     private TextView mTextViewRotateAngle, mTextViewScalePercent;
 
+    private TitleBar titleBar;
+
     private Uri mOutputUri;
 
     private Bitmap.CompressFormat mCompressFormat = DEFAULT_COMPRESS_FORMAT;
@@ -91,7 +91,6 @@ public class UCropActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ucrop_photobox);
-
         setupViews();
         setImageData();
         setInitialState();
@@ -156,10 +155,8 @@ public class UCropActivity extends AppCompatActivity {
 
         if (intent.getBooleanExtra(UCrop.EXTRA_ASPECT_RATIO_SET, false)) {
             mWrapperStateAspectRatio.setVisibility(View.GONE);
-
             int aspectRatioX = intent.getIntExtra(UCrop.EXTRA_ASPECT_RATIO_X, 0);
             int aspectRatioY = intent.getIntExtra(UCrop.EXTRA_ASPECT_RATIO_Y, 0);
-
             if (aspectRatioX > 0 && aspectRatioY > 0) {
                 mGestureCropImageView.setTargetAspectRatio(aspectRatioX / (float) aspectRatioY);
             } else {
@@ -205,7 +202,6 @@ public class UCropActivity extends AppCompatActivity {
             mGestureCropImageView.setMaxScaleMultiplier(optionsBundle.getFloat(UCrop.Options.EXTRA_MAX_SCALE_MULTIPLIER, CropImageView.DEFAULT_MAX_SCALE_MULTIPLIER));
             mGestureCropImageView.setImageToWrapCropBoundsAnimDuration(optionsBundle.getInt(UCrop.Options.EXTRA_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION, CropImageView.DEFAULT_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION));
 
-
             // Overlay view options
             mOverlayView.setDimmedColor(optionsBundle.getInt(UCrop.Options.EXTRA_DIMMED_LAYER_COLOR, getResources().getColor(R.color.ucrop_color_default_dimmed)));
             mOverlayView.setOvalDimmedLayer(optionsBundle.getBoolean(UCrop.Options.EXTRA_OVAL_DIMMED_LAYER, OverlayView.DEFAULT_OVAL_DIMMED_LAYER));
@@ -242,27 +238,32 @@ public class UCropActivity extends AppCompatActivity {
      * Configures and styles both status bar and toolbar.
      */
     private void setupAppBar() {
-        setStatusBarColor(mStatusBarColor);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setStatusBarColor(mStatusBarColor);
+//
+//        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//
+//        // Set all of the Toolbar coloring
+//        toolbar.setBackgroundColor(mToolbarColor);
+//        toolbar.setTitleTextColor(mToolbarTextColor);
+//        toolbar.setSubtitleTextColor(mToolbarTextColor);
+//
+//        ((TextView) toolbar.findViewById(R.id.toolbar_title)).setTextColor(mToolbarTextColor);
+//
+//        // Color buttons inside the Toolbar
+//        Drawable stateButtonDrawable = ContextCompat.getDrawable(this, R.mipmap.ucrop_ic_cross).mutate();
+//        stateButtonDrawable.setColorFilter(mToolbarTextColor, PorterDuff.Mode.SRC_ATOP);
+//        toolbar.setNavigationIcon(stateButtonDrawable);
+//
+//        setSupportActionBar(toolbar);
+//        final ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayShowTitleEnabled(false);
+//        }
 
-        // Set all of the Toolbar coloring
-        toolbar.setBackgroundColor(mToolbarColor);
-        toolbar.setTitleTextColor(mToolbarTextColor);
-        toolbar.setSubtitleTextColor(mToolbarTextColor);
-
-        ((TextView) toolbar.findViewById(R.id.toolbar_title)).setTextColor(mToolbarTextColor);
-
-        // Color buttons inside the Toolbar
-        Drawable stateButtonDrawable = ContextCompat.getDrawable(this, R.mipmap.ucrop_ic_cross).mutate();
-        stateButtonDrawable.setColorFilter(mToolbarTextColor, PorterDuff.Mode.SRC_ATOP);
-        toolbar.setNavigationIcon(stateButtonDrawable);
-
-        setSupportActionBar(toolbar);
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+        titleBar= (TitleBar) this.findViewById(R.id.title_bar);
+        titleBar.setTitleBarLeftIcon(R.mipmap.ucrop_ic_cross,this);
+        titleBar.setRightMenuIcon(R.mipmap.ucrop_ic_done,this);
     }
 
     private void initiateRootViews() {
@@ -505,6 +506,19 @@ public class UCropActivity extends AppCompatActivity {
 
     private void setResultException(Throwable throwable) {
         setResult(UCrop.RESULT_ERROR, new Intent().putExtra(UCrop.EXTRA_ERROR, throwable));
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id=v.getId();
+        switch (id){
+            case R.id.iv_titlebar_next_menu01:
+                cropAndSaveImage();
+                break;
+            case R.id.iv_titlebar_left:
+                break;
+        }
+
     }
 
 }

@@ -21,12 +21,16 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <com.yalantis.ucrop.view.UCropView
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar"/>
+
+    <com.htt.personallife.views.ucrop.view.UCropView
         android:id="@+id/ucrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/wrapper_controls"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/title_bar"
         android:background="@color/ucrop_color_crop_background"/>
 
     <FrameLayout
@@ -73,7 +77,7 @@
             <ImageView
                 android:id="@+id/image_view_state_scale"
                 style="@style/ucrop_ImageViewWidgetIcon"
-                android:src="@drawable/ucrop_ic_scale"/>
+                android:src="@mipmap/ucrop_ic_scale"/>
 
         </FrameLayout>
 
@@ -84,7 +88,7 @@
             <ImageView
                 android:id="@+id/image_view_state_rotate"
                 style="@style/ucrop_ImageViewWidgetIcon"
-                android:src="@drawable/ucrop_ic_rotate"/>
+                android:src="@mipmap/ucrop_ic_rotate"/>
 
         </FrameLayout>
 
@@ -95,7 +99,7 @@
             <ImageView
                 android:id="@+id/image_view_state_aspect_ratio"
                 style="@style/ucrop_ImageViewWidgetIcon"
-                android:src="@drawable/ucrop_ic_crop"/>
+                android:src="@mipmap/ucrop_ic_crop"/>
 
         </FrameLayout>
 
