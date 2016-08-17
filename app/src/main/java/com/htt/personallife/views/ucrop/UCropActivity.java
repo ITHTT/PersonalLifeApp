@@ -3,9 +3,6 @@ package com.htt.personallife.views.ucrop;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,8 +13,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -96,32 +91,32 @@ public class UCropActivity extends AppCompatActivity implements View.OnClickList
         setInitialState();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.ucrop_menu_activity, menu);
-
-        // Change the next menu icon color to match the rest of the UI colors
-        MenuItem next = menu.findItem(R.id.menu_crop);
-
-        Drawable defaultIcon = next.getIcon();
-        if (defaultIcon != null) {
-            defaultIcon.mutate();
-            defaultIcon.setColorFilter(mToolbarTextColor, PorterDuff.Mode.SRC_ATOP);
-            next.setIcon(defaultIcon);
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_crop) {
-            cropAndSaveImage();
-        } else if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(final Menu menu) {
+//        getMenuInflater().inflate(R.menu.ucrop_menu_activity, menu);
+//
+//        // Change the next menu icon color to match the rest of the UI colors
+//        MenuItem next = menu.findItem(R.id.menu_crop);
+//
+//        Drawable defaultIcon = next.getIcon();
+//        if (defaultIcon != null) {
+//            defaultIcon.mutate();
+//            defaultIcon.setColorFilter(mToolbarTextColor, PorterDuff.Mode.SRC_ATOP);
+//            next.setIcon(defaultIcon);
+//        }
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.menu_crop) {
+//            cropAndSaveImage();
+//        } else if (item.getItemId() == android.R.id.home) {
+//            onBackPressed();
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     protected void onStop() {
@@ -145,6 +140,7 @@ public class UCropActivity extends AppCompatActivity implements View.OnClickList
             try {
                 mGestureCropImageView.setImageUri(inputUri);
             } catch (Exception e) {
+                System.out.println(e.getMessage());
                 setResultException(e);
                 finish();
             }
@@ -219,12 +215,12 @@ public class UCropActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void setupViews() {
-        Bundle optionsBundle = getIntent().getBundleExtra(UCrop.EXTRA_OPTIONS);
+//        Bundle optionsBundle = getIntent().getBundleExtra(UCrop.EXTRA_OPTIONS);
 
-        mStatusBarColor = optionsBundle.getInt(UCrop.Options.EXTRA_STATUS_BAR_COLOR, Color.parseColor("#0288D1"));
-        mToolbarColor = optionsBundle.getInt(UCrop.Options.EXTRA_TOOL_BAR_COLOR, Color.parseColor("#03A9F4"));
-        mActiveWidgetColor = optionsBundle.getInt(UCrop.Options.EXTRA_UCROP_COLOR_WIDGET_ACTIVE, Color.parseColor("#FF6E40"));
-        mToolbarTextColor = optionsBundle.getInt(UCrop.Options.EXTRA_UCROP_TITLE_COLOR_TOOLBAR, Color.parseColor("#ffffff"));
+//        mStatusBarColor = optionsBundle.getInt(UCrop.Options.EXTRA_STATUS_BAR_COLOR, Color.parseColor("#0288D1"));
+//        mToolbarColor = optionsBundle.getInt(UCrop.Options.EXTRA_TOOL_BAR_COLOR, Color.parseColor("#03A9F4"));
+//        mActiveWidgetColor = optionsBundle.getInt(UCrop.Options.EXTRA_UCROP_COLOR_WIDGET_ACTIVE, Color.parseColor("#FF6E40"));
+//        mToolbarTextColor = optionsBundle.getInt(UCrop.Options.EXTRA_UCROP_TITLE_COLOR_TOOLBAR, Color.parseColor("#ffffff"));
 
         setupAppBar();
         initiateRootViews();
@@ -260,9 +256,9 @@ public class UCropActivity extends AppCompatActivity implements View.OnClickList
 //        if (actionBar != null) {
 //            actionBar.setDisplayShowTitleEnabled(false);
 //        }
-
         titleBar= (TitleBar) this.findViewById(R.id.title_bar);
-        titleBar.setTitleBarLeftIcon(R.mipmap.ucrop_ic_cross,this);
+        titleBar.setTitleBarTitle("剪切图片");
+        titleBar.setTitleBarLeftIcon(R.mipmap.icon_back,this);
         titleBar.setRightMenuIcon(R.mipmap.ucrop_ic_done,this);
     }
 
@@ -516,6 +512,7 @@ public class UCropActivity extends AppCompatActivity implements View.OnClickList
                 cropAndSaveImage();
                 break;
             case R.id.iv_titlebar_left:
+                finish();
                 break;
         }
 

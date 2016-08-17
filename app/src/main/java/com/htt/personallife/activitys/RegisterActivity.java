@@ -1,6 +1,7 @@
 package com.htt.personallife.activitys;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -8,9 +9,16 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.htt.personallife.R;
+import com.htt.personallife.app.AppConfigInfo;
 import com.htt.personallife.app.BaseActivity;
 import com.htt.personallife.views.multiphotopicker.ui.activitys.PhotoPickerActivity;
+import com.htt.personallife.views.ucrop.UCrop;
+import com.htt.personallife.views.ucrop.UCropActivity;
+
+import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
@@ -33,6 +41,8 @@ public class RegisterActivity extends BaseActivity{
     protected EditText etUserPassword;
     @BindView(R.id.et_user_phone)
     protected EditText etUserPhone;
+    @BindView(R.id.iv_user_header)
+    protected ImageView ivUserHeader;
 
     @Override
     protected int getContentViewId() {
@@ -108,4 +118,33 @@ public class RegisterActivity extends BaseActivity{
         startActivityForResult(intent, 0x0001);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            if(requestCode==0x0001){
+                if(data!=null){
+                    ArrayList<String> images = data.getStringArrayListExtra("selected_photos");
+                    if(images!=null&&images.size()>0){
+                        String imgUrl=images.get(0);
+                        System.out.println("imgUrl:" + imgUrl);
+                        //Glide.with(this).load(imgUrl).asBitmap().into(ivUserHeader);
+                        File outFile=new File(AppConfigInfo.APP_IMAGE_PATH,System.currentTimeMillis()+".jpg");
+
+                        Uri outUri=Uri.fromFile(outFile);
+                        Uri inputUri=Uri.fromFile(new File(imgUrl));
+                        Intent intent=new Intent(this, UCropActivity.class);
+                        intent.putExtra(UCrop.EXTRA_INPUT_URI,inputUri);
+                        intent.putExtra(UCrop.EXTRA_OUTPUT_URI,outUri);
+                        intent.putExtra(UCrop.EXTRA_ASPECT_RATIO_X,1);
+                        intent.putExtra(UCrop.EXTRA_ASPECT_RATIO_Y,1);
+                        startActivityForResult(intent, 0x0002);
+                    }
+                }
+            }else if(requestCode==0x0002){
+                Uri outUri=data.getParcelableExtra(UCrop.EXTRA_OUTPUT_URI);
+                Glide.with(this).load(outUri).asBitmap().into(ivUserHeader);
+            }
+        }
+    }
 }
