@@ -37,7 +37,6 @@ public class LoginActivity extends BaseActivity{
     @Override
     protected void initViews(Bundle outState) {
         setTitle("用户登录");
-
     }
 
     @Override

@@ -130,7 +130,6 @@ public class RegisterActivity extends BaseActivity{
                         System.out.println("imgUrl:" + imgUrl);
                         //Glide.with(this).load(imgUrl).asBitmap().into(ivUserHeader);
                         File outFile=new File(AppConfigInfo.APP_IMAGE_PATH,System.currentTimeMillis()+".jpg");
-
                         Uri outUri=Uri.fromFile(outFile);
                         Uri inputUri=Uri.fromFile(new File(imgUrl));
                         Intent intent=new Intent(this, UCropActivity.class);
