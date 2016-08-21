@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.htt.personallife.R;
 import com.htt.personallife.modles.event.EventObject;
 import com.htt.personallife.modles.event.EventType;
+import com.htt.personallife.networks.HttpClientUtil;
 import com.htt.personallife.views.widgets.LoadingLayout;
 import com.htt.personallife.views.widgets.TitleBar;
 
@@ -223,6 +224,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        HttpClientUtil.getHttpClientUtil().cancelTag(TAG);
         if(!isCanceledEventBus()){
             EventBus.getDefault().unregister(this);
         }

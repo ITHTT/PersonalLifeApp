@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.htt.personallife.R;
 import com.htt.personallife.modles.event.EventObject;
 import com.htt.personallife.modles.event.EventType;
+import com.htt.personallife.networks.HttpClientUtil;
 import com.htt.personallife.views.widgets.LoadingLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -181,6 +182,7 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
+        HttpClientUtil.getHttpClientUtil().cancelTag(TAG);
         if(!isCanceledEventBus()){
             EventBus.getDefault().unregister(this);
         }
