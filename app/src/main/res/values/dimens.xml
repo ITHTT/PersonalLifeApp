@@ -65,4 +65,6 @@
     <dimen name="ucrop_default_crop_grid_stoke_width">1dp</dimen>
     <dimen name="ucrop_default_crop_frame_stoke_width">1dp</dimen>
 
+    <dimen name="item_emoticon_size_big">60dp</dimen>
+
 </resources>

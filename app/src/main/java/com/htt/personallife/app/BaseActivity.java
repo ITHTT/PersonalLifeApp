@@ -41,11 +41,14 @@ public abstract class BaseActivity extends AppCompatActivity{
             EventBus.getDefault().register(this);
         }
         initBaseView();
-        initViews(savedInstanceState);
+        if(savedInstanceState==null) {
+            initViews(savedInstanceState);
+        }else{
+            handleInstanceState(savedInstanceState);
+        }
         if(getIntent()!=null){
             getIntentData(getIntent());
         }
-        handleInstanceState(savedInstanceState);
     }
 
     /**

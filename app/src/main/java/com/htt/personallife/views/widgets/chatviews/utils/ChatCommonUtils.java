@@ -21,6 +21,7 @@ import com.htt.emoticonskeyboard.utils.imageloader.ImageLoader;
 import com.htt.emoticonskeyboard.widget.EmoticonPageView;
 import com.htt.emoticonskeyboard.widget.EmoticonsEditText;
 import com.htt.personallife.R;
+import com.htt.personallife.views.widgets.chatviews.adapter.BigEmoticonsAdapter;
 import com.htt.personallife.views.widgets.chatviews.modle.Constants;
 import com.htt.personallife.views.widgets.chatviews.modle.DefEmoticons;
 import com.htt.personallife.views.widgets.chatviews.modle.EmojiBean;
@@ -104,7 +105,7 @@ public class ChatCommonUtils {
         Collections.addAll(emojiArray, DefEmoticons.sEmojiArray);
         EmoticonPageSetEntity emojiPageSetEntity
                 = new EmoticonPageSetEntity.Builder()
-                .setLine(3)
+                .setLine(4)
                 .setRow(7)
                 .setEmoticonList(emojiArray)
                 .setIPageViewInstantiateItem(getDefaultEmoticonPageViewInstantiateItem(new EmoticonDisplayListener<Object>() {
@@ -160,29 +161,29 @@ public class ChatCommonUtils {
 //        pageSetAdapter.add(xhsPageSetEntity);
 //    }
 
-//    /**
-//     * 插入微信表情集
-//     *
-//     * @param pageSetAdapter
-//     * @param context
-//     * @param emoticonClickListener
-//     */
-//    public static void addWechatPageSetEntity(PageSetAdapter pageSetAdapter, Context context, EmoticonClickListener emoticonClickListener) {
-//        String filePath = FileUtils.getFolderPath("wxemoticons");
-//        EmoticonPageSetEntity<EmoticonEntity> emoticonPageSetEntity = ParseDataUtils.parseDataFromFile(context, filePath, "wxemoticons.zip", "wxemoticons.xml");
-//        if (emoticonPageSetEntity == null) {
-//            return;
-//        }
-//        EmoticonPageSetEntity pageSetEntity
-//                = new EmoticonPageSetEntity.Builder()
-//                .setLine(emoticonPageSetEntity.getLine())
-//                .setRow(emoticonPageSetEntity.getRow())
-//                .setEmoticonList(emoticonPageSetEntity.getEmoticonList())
-//                .setIPageViewInstantiateItem(getEmoticonPageViewInstantiateItem(BigEmoticonsAdapter.class, emoticonClickListener))
-//                .setIconUri(ImageBase.Scheme.FILE.toUri(filePath + "/" + emoticonPageSetEntity.getIconUri()))
-//                .build();
-//        pageSetAdapter.add(pageSetEntity);
-//    }
+    /**
+     * 插入微信表情集
+     *
+     * @param pageSetAdapter
+     * @param context
+     * @param emoticonClickListener
+     */
+    public static void addWechatPageSetEntity(PageSetAdapter pageSetAdapter, Context context, EmoticonClickListener emoticonClickListener) {
+        String filePath = FileUtils.getFolderPath("wxemoticons");
+        EmoticonPageSetEntity<EmoticonEntity> emoticonPageSetEntity = ParseDataUtils.parseDataFromFile(context, filePath, "wxemoticons.zip", "wxemoticons.xml");
+        if (emoticonPageSetEntity == null) {
+            return;
+        }
+        EmoticonPageSetEntity pageSetEntity
+                = new EmoticonPageSetEntity.Builder()
+                .setLine(emoticonPageSetEntity.getLine())
+                .setRow(emoticonPageSetEntity.getRow())
+                .setEmoticonList(emoticonPageSetEntity.getEmoticonList())
+                .setIPageViewInstantiateItem(getEmoticonPageViewInstantiateItem(BigEmoticonsAdapter.class, emoticonClickListener))
+                .setIconUri(ImageBase.Scheme.FILE.toUri(filePath + "/" + emoticonPageSetEntity.getIconUri()))
+                .build();
+        pageSetAdapter.add(pageSetEntity);
+    }
 
 //    /**
 //     * 插入我们爱学习表情集

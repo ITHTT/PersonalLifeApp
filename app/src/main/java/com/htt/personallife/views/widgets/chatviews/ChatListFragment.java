@@ -82,12 +82,12 @@ public class ChatListFragment extends BaseFragment implements FuncLayout.OnFuncK
                 keyBoard.getEtChat().setText("");
             }
         });
-        keyBoard.getEmoticonsToolBarView().addFixedToolItemView(false, R.mipmap.icon_add_item, null, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(SimpleChatUserDefActivity.this, "ADD", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        keyBoard.getEmoticonsToolBarView().addFixedToolItemView(false, R.mipmap.icon_add, null, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Toast.makeText(SimpleChatUserDefActivity.this, "ADD", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override

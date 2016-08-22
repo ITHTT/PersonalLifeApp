@@ -63,11 +63,14 @@
     </declare-styleable>
 
     <declare-styleable name="ucrop_AspectRatioTextView">
-
         <attr name="ucrop_artv_ratio_title" format="string"/>
-
         <attr name="ucrop_artv_ratio_x" format="float"/>
         <attr name="ucrop_artv_ratio_y" format="float"/>
+    </declare-styleable>
 
+    <declare-styleable name="SwipeMenu">
+        <attr name="sml_scroller_duration" format="integer" />
+        <attr name="sml_auto_open_percent" format="float"/>
+        <attr name="sml_scroller_interpolator" format="reference"/>
     </declare-styleable>
 </resources>

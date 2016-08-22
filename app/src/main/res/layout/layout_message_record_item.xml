@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.htt.personallife.views.widgets.swipemenu.SwipeHorizontalMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:sml_scroller_interpolator="@android:anim/accelerate_decelerate_interpolator"
+    app:sml_auto_open_percent="0.15"
+    app:sml_scroller_duration="250">
+    <include
+        android:id="@id/smContentView"
+        layout="@layout/layout_message_record_content_item"/>
+    <include
+        android:id="@id/smMenuViewRight"
+        layout="@layout/layout_message_record_right_menu_item"/>
+</com.htt.personallife.views.widgets.swipemenu.SwipeHorizontalMenuLayout>
