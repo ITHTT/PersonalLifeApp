@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-
 public class ParseDataUtils {
 
     public static ArrayList<EmoticonEntity> ParseQqData(HashMap<String, Integer> data) {

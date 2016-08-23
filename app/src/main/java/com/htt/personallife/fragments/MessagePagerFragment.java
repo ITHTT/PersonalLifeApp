@@ -3,6 +3,7 @@ package com.htt.personallife.fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.htt.personallife.R;
@@ -11,7 +12,6 @@ import com.htt.personallife.modles.MessageRecordEntity;
 import com.htt.personallife.utils.CommonUtils;
 import com.htt.personallife.views.adapters.MessageRecordAdapter;
 import com.htt.personallife.views.widgets.RecyclerViewDivider;
-import com.htt.personallife.views.widgets.swipemenu.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import butterknife.BindView;
  */
 public class MessagePagerFragment extends BaseFragment{
     @BindView(R.id.message_recyclerview)
-    protected SwipeMenuRecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
     private List<MessageRecordEntity> messageRecordEntityList=null;
     private MessageRecordAdapter adapter;

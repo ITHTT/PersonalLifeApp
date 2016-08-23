@@ -1,7 +1,5 @@
 package com.htt.personallife.views.adapters;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SimpleSwipeListener;
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.htt.personallife.R;
-import com.htt.personallife.activitys.ChatListActivity;
 import com.htt.personallife.modles.MessageRecordEntity;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/8/22.
  */
-public class MessageRecordAdapter extends RecyclerView.Adapter<MessageRecordAdapter.MessageRecordViewHolder>{
+public class MessageRecordAdapter extends RecyclerSwipeAdapter<MessageRecordAdapter.MessageRecordViewHolder> {
     private List<MessageRecordEntity> messageRecordEntityList=null;
 
     public MessageRecordAdapter(List<MessageRecordEntity> messageRecordEntityList) {
@@ -36,14 +36,21 @@ public class MessageRecordAdapter extends RecyclerView.Adapter<MessageRecordAdap
 
     @Override
     public void onBindViewHolder(final MessageRecordViewHolder holder, int position) {
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+        holder.swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
-            public void onClick(View v) {
-                Context context=holder.itemView.getContext();
-                Intent intent=new Intent(context, ChatListActivity.class);
-                context.startActivity(intent);
+            public void onOpen(SwipeLayout layout) {
+
             }
         });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Context context=holder.itemView.getContext();
+//                Intent intent=new Intent(context, ChatListActivity.class);
+//                context.startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -51,7 +58,14 @@ public class MessageRecordAdapter extends RecyclerView.Adapter<MessageRecordAdap
         return messageRecordEntityList.size();
     }
 
+    @Override
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.swipe_layout;
+    }
+
     public static final class MessageRecordViewHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.swipe_layout)
+        SwipeLayout swipeLayout;
         @BindView(R.id.iv_message_icon)
         ImageView ivMessageIcon;
         @BindView(R.id.tv_message_count)
