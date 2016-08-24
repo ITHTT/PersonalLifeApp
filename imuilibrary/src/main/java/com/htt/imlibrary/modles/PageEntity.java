@@ -3,7 +3,7 @@ package com.htt.imlibrary.modles;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.htt.emoticonskeyboard.interfaces.PageViewInstantiateListener;
+import com.htt.imlibrary.interfaces.PageViewInstantiateListener;
 
 
 public class PageEntity<T extends PageEntity> implements PageViewInstantiateListener<T> {

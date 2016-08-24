@@ -28,6 +28,18 @@ public abstract class AutoHeightLayout extends SoftKeyboardSizeWatchLayout imple
         addOnResizeListener(this);
     }
 
+    public AutoHeightLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    public AutoHeightLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    public AutoHeightLayout(Context context) {
+        super(context);
+    }
+
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         int childSum = getChildCount();

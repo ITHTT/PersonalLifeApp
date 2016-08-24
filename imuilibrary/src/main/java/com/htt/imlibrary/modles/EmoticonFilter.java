@@ -1,5 +1,6 @@
 package com.htt.imlibrary.modles;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -7,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.widget.EditText;
 
@@ -29,7 +29,7 @@ public abstract class EmoticonFilter {
         return null;
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static Drawable getDrawable(Context context, String emojiName) {
         if(TextUtils.isEmpty(emojiName)){
             return null;
@@ -51,7 +51,7 @@ public abstract class EmoticonFilter {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static Drawable getDrawable(Context context, int emoticon) {
         if(emoticon <= 0){
             return null;

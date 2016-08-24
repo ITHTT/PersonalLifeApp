@@ -1,8 +1,10 @@
 package com.htt.imlibrary.views.widget;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
@@ -17,6 +19,11 @@ public class SoftKeyboardSizeWatchLayout extends RelativeLayout {
     private int mNowh = -1;
     protected int mScreenHeight = 0;
     protected boolean mIsSoftKeyboardPop = false;
+
+    public SoftKeyboardSizeWatchLayout(Context context) {
+        super(context);
+    }
+
 
     public SoftKeyboardSizeWatchLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,6 +57,15 @@ public class SoftKeyboardSizeWatchLayout extends RelativeLayout {
                 mOldh = mNowh;
             }
         });
+    }
+
+    public SoftKeyboardSizeWatchLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public SoftKeyboardSizeWatchLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     public boolean isSoftKeyboardPop() {
