@@ -30,7 +30,6 @@ import java.util.ArrayList;
 public class ChatConversationFragment extends Fragment implements EmoticonClickListener {
     protected ChatInputEditTextView chatInputEditTextView=null;
     protected ListView chatListView;
-
     protected PageSetAdapter pageSetAdapter=null;
 
     @Override
