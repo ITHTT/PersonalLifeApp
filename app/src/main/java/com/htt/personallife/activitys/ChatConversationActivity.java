@@ -3,6 +3,7 @@ package com.htt.personallife.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.htt.imlibrary.ChatConversationFragment;
 import com.htt.personallife.R;
 import com.htt.personallife.app.BaseActivity;
 import com.htt.personallife.views.widgets.chatviews.ChatListFragment;
@@ -10,8 +11,8 @@ import com.htt.personallife.views.widgets.chatviews.ChatListFragment;
 /**
  * Created by Administrator on 2016/8/12.
  */
-public class ChatListActivity extends BaseActivity{
-    private ChatListFragment chatListFragment;
+public class ChatConversationActivity extends BaseActivity{
+    private ChatConversationFragment chatConversationFragment;
     @Override
     protected int getContentViewId() {
         return R.layout.activity_chat_list;
@@ -20,8 +21,8 @@ public class ChatListActivity extends BaseActivity{
     @Override
     protected void initViews(Bundle outState) {
         setTitle("聊天");
-        chatListFragment=new ChatListFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout_container,chatListFragment).commitAllowingStateLoss();
+        chatConversationFragment=new ChatConversationFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout_container,chatConversationFragment).commitAllowingStateLoss();
     }
 
     @Override

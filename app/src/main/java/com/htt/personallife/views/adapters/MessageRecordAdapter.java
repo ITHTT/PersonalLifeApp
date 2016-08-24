@@ -1,5 +1,7 @@
 package com.htt.personallife.views.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.htt.personallife.R;
+import com.htt.personallife.activitys.ChatConversationActivity;
 import com.htt.personallife.modles.MessageRecordEntity;
 
 import java.util.List;
@@ -41,6 +44,14 @@ public class MessageRecordAdapter extends RecyclerSwipeAdapter<MessageRecordAdap
             @Override
             public void onOpen(SwipeLayout layout) {
 
+            }
+        });
+        holder.layoutMessageContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context=holder.itemView.getContext();
+                Intent intent=new Intent(context, ChatConversationActivity.class);
+                context.startActivity(intent);
             }
         });
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +93,8 @@ public class MessageRecordAdapter extends RecyclerSwipeAdapter<MessageRecordAdap
         TextView tvMessageReadState;
         @BindView(R.id.tv_message_delete)
         TextView tvMessageDelete;
+        @BindView(R.id.layout_message_content)
+        View layoutMessageContent;
 
         public MessageRecordViewHolder(View itemView) {
             super(itemView);

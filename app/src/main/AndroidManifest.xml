@@ -29,7 +29,7 @@
 
         <activity android:name=".activitys.MainActivity"/>
 
-        <activity android:name=".activitys.ChatListActivity"/>
+        <activity android:name=".activitys.ChatConversationActivity"/>
 
         <activity android:name=".views.multiphotopicker.ui.activitys.PhotoPagerActivity"/>
 
