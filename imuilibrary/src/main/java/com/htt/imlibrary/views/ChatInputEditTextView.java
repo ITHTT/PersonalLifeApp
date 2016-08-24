@@ -192,7 +192,7 @@ public class ChatInputEditTextView extends AutoHeightLayout implements View.OnCl
     @Override
     public void onFuncChange(int key) {
         if (FUNC_TYPE_EMOTION == key) {
-            mBtnFace.setImageResource(R.mipmap.icon_face_pop);
+            mBtnFace.setImageResource(R.mipmap.icon_softkeyboard_nomal);
         } else {
             mBtnFace.setImageResource(R.mipmap.icon_face_nomal);
         }

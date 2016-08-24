@@ -15,8 +15,10 @@ import com.htt.imlibrary.modles.EmoticonEntity;
 import com.htt.imlibrary.modles.EmoticonPageEntity;
 import com.htt.imlibrary.modles.EmoticonPageSetEntity;
 import com.htt.imlibrary.modles.ExpressionFilter;
+import com.htt.imlibrary.modles.GifEmojiData;
 import com.htt.imlibrary.utils.imageloader.ImageBase;
 import com.htt.imlibrary.views.ChatInputEditTextView;
+import com.htt.imlibrary.views.adapter.BigEmoticonsAdapter;
 import com.htt.imlibrary.views.adapter.EmoticonsAdapter;
 import com.htt.imlibrary.views.adapter.PageSetAdapter;
 import com.htt.imlibrary.views.widget.EmoticonPageView;
@@ -50,6 +52,7 @@ public class ChatConversationFragment extends Fragment implements EmoticonClickL
         emoticonsEditText.addEmoticonFilter(new ExpressionFilter());
         pageSetAdapter=new PageSetAdapter();
         addDefaultEmoticonPageSetEntity(pageSetAdapter);
+        addGifEmoticonPageSetEntity(pageSetAdapter);
         chatInputEditTextView.setAdapter(pageSetAdapter);
         chatInputEditTextView.getBtnSend().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +114,38 @@ public class ChatConversationFragment extends Fragment implements EmoticonClickL
         emojiPageSetEntityBuilder.setShowDelBtn(EmoticonPageEntity.DelBtnStatus.LAST)
                 .setIconUri(ImageBase.Scheme.DRAWABLE.toUri("icon_emoji"));
         pageSetAdapter.add(emojiPageSetEntityBuilder.build());
+    }
+
+    protected void addGifEmoticonPageSetEntity(PageSetAdapter adapter){
+        ArrayList<EmoticonEntity> emoticonEntities= GifEmojiData.getGifEmoticonDatas();
+        PageViewInstantiateListener<EmoticonPageEntity> pageViewInstantiateListener=new PageViewInstantiateListener<EmoticonPageEntity>() {
+            @Override
+            public View instantiateItem(ViewGroup container, int position, EmoticonPageEntity pageEntity) {
+                if (pageEntity.getRootView() == null) {
+                    EmoticonPageView pageView = new EmoticonPageView(container.getContext());
+                    pageView.setNumColumns(pageEntity.getRow());
+                    pageEntity.setRootView(pageView);
+                    try {
+                        //EmoticonsAdapter adapter = new EmoticonsAdapter(getContext(),pageEntity,null);
+                        BigEmoticonsAdapter adapter=new BigEmoticonsAdapter(getContext(),pageEntity,ChatConversationFragment.this);
+                        pageView.getEmoticonsGridView().setAdapter(adapter);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                return pageEntity.getRootView();
+            }
+        };
+        EmoticonPageSetEntity pageSetEntity
+                = new EmoticonPageSetEntity.Builder()
+                .setLine(2)
+                .setRow(4)
+                .setEmoticonList(emoticonEntities)
+                .setIPageViewInstantiateItem(pageViewInstantiateListener)
+                .setIconUri(ImageBase.Scheme.DRAWABLE.toUri("icon_002_cover"))
+                .build();
+        pageSetAdapter.add(pageSetEntity);
+
     }
 
     @Override

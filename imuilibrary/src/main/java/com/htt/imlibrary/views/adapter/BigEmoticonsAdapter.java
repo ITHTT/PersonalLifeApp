@@ -66,8 +66,8 @@ public class BigEmoticonsAdapter extends EmoticonsAdapter<EmoticonEntity> {
         } else {
             if (emoticonEntity != null) {
                 try {
-                    ImageLoader.getInstance(viewHolder.iv_emoticon.getContext()).displayImage(emoticonEntity.getIconUri(), viewHolder.iv_emoticon);
-                } catch (IOException e) {
+                    viewHolder.iv_emoticon.setImageResource(emoticonEntity.getIconResource());
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 viewHolder.iv_emoticon.setBackgroundResource(R.drawable.bg_emoticon);
