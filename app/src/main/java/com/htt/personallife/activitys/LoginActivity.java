@@ -1,7 +1,6 @@
 package com.htt.personallife.activitys;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
@@ -148,27 +147,25 @@ public class LoginActivity extends BaseActivity{
 
             @Override
             public void onError(Call call, Exception error) {
-                KLog.e("error:"+error.getMessage());
+                KLog.e("error:" + error.getMessage());
             }
 
             @Override
             public void onSuccess(Call call, String response) {
-                KLog.i("response:"+response);
-                if(!TextUtils.isEmpty(response)){
-                    JSONObject obj=JSONObject.parseObject(response);
-                    int code=obj.getIntValue("code");
-                    String message=obj.getString("message");
-                    ToastUtil.show(LoginActivity.this,message);
-                    if(code==200){
-                        JSONObject dataObj=obj.getJSONObject("data");
-                        if(dataObj!=null&&!dataObj.isEmpty()){
-                            String token=dataObj.getString("token");
-                            KLog.i("token:"+token);
+                KLog.i("response:" + response);
+                if (!TextUtils.isEmpty(response)) {
+                    JSONObject obj = JSONObject.parseObject(response);
+                    int code = obj.getIntValue("code");
+                    String message = obj.getString("message");
+                    ToastUtil.show(LoginActivity.this, message);
+                    if (code == 200) {
+                        JSONObject dataObj = obj.getJSONObject("data");
+                        if (dataObj != null && !dataObj.isEmpty()) {
+                            String token = dataObj.getString("token");
+                            KLog.i("token:" + token);
                         }
                     }
                 }
-                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
             }
 
             @Override
@@ -177,6 +174,8 @@ public class LoginActivity extends BaseActivity{
 
             }
         });
+        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+        startActivity(intent);
     }
 
 }

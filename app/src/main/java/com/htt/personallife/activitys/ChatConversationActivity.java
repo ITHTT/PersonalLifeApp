@@ -6,7 +6,6 @@ import android.os.Bundle;
 import com.htt.imlibrary.ChatConversationFragment;
 import com.htt.personallife.R;
 import com.htt.personallife.app.BaseActivity;
-import com.htt.personallife.views.widgets.chatviews.ChatListFragment;
 
 /**
  * Created by Administrator on 2016/8/12.

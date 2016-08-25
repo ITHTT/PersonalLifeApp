@@ -52,7 +52,7 @@ public class ChatListFragment extends BaseFragment implements FuncLayout.OnFuncK
 
     @Override
     protected int getContentViewId() {
-        return R.layout.fragment_chat_list;
+        return R.layout.fragment_chat_conversation;
     }
 
     @Override
