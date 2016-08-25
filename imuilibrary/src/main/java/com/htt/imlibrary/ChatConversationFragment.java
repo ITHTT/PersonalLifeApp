@@ -57,7 +57,6 @@ public class ChatConversationFragment extends Fragment implements EmoticonClickL
         chatInputEditTextView.getBtnSend().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //OnSendBtnClick(keyBoard.getEtChat().getText().toString());
                 emoticonsEditText.setText("");
             }
         });
@@ -145,7 +144,6 @@ public class ChatConversationFragment extends Fragment implements EmoticonClickL
                 .setIconUri(ImageBase.Scheme.DRAWABLE.toUri("icon_002_cover"))
                 .build();
         pageSetAdapter.add(pageSetEntity);
-
     }
 
     @Override

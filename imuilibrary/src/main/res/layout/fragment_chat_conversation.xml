@@ -16,4 +16,9 @@
         android:scrollingCache="false"
         android:smoothScrollbar="true"
         android:stackFromBottom="true" />
+    <com.htt.imlibrary.views.widget.ChatVoiceRecorderView
+        android:id="@+id/voice_recorder_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 </com.htt.imlibrary.views.ChatInputEditTextView>

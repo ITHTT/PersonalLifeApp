@@ -357,4 +357,6 @@ public class ChatInputEditTextView extends AutoHeightLayout implements View.OnCl
     public EmoticonsToolBarView getEmoticonsToolBarView() {
         return mEmoticonsToolBarView;
     }
+
+
 }
