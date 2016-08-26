@@ -20,6 +20,8 @@ public class AppConfigInfo {
     public static String APP_LOG_PATH=null;
     public static final String APP_IMAGE_DIR_NAME="images";
     public static String APP_IMAGE_PATH=null;
+    public static final String APP_VOICE_DIR_NAME="voices";
+    public static String APP_VOICE_PATH=null;
 
     public static final int REQUEST_CODE_USER_LOGIN=0x0001;
 
@@ -63,14 +65,14 @@ public class AppConfigInfo {
                 imageDir.mkdirs();
             }
             APP_IMAGE_PATH = imageDir.getAbsolutePath();
+
+            File voiceDir=new File(APP_PATH+File.separator+APP_VOICE_DIR_NAME);
+            if(!voiceDir.exists()){
+                voiceDir.mkdirs();
+            }
+            APP_VOICE_PATH=voiceDir.getAbsolutePath();
             isInit=true;
         }
-
-//        File videoDir=new File(APP_PATH+File.separator+APP_VIDEO_DIR_NAME);
-//        if(!videoDir.exists()){
-//            videoDir.mkdirs();
-//        }
-//        APP_VIDEO_PATH=videoDir.getAbsolutePath();
     }
 
     public static String getAppException(){
