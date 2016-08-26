@@ -1,8 +1,13 @@
 package com.htt.imlibrary;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -21,6 +26,8 @@ import com.htt.imlibrary.views.ChatInputEditTextView;
 import com.htt.imlibrary.views.adapter.BigEmoticonsAdapter;
 import com.htt.imlibrary.views.adapter.EmoticonsAdapter;
 import com.htt.imlibrary.views.adapter.PageSetAdapter;
+import com.htt.imlibrary.views.widget.ChatExtendMenuView;
+import com.htt.imlibrary.views.widget.ChatVoiceRecorderView;
 import com.htt.imlibrary.views.widget.EmoticonPageView;
 import com.htt.imlibrary.views.widget.EmoticonsEditText;
 
@@ -29,27 +36,59 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016/8/24.
  */
-public class ChatConversationFragment extends Fragment implements EmoticonClickListener {
+public class ChatConversationFragment extends Fragment implements EmoticonClickListener,ChatInputEditTextView.ChatInputEditTextListener
+{
     protected ChatInputEditTextView chatInputEditTextView=null;
     protected ListView chatListView;
+    protected ChatVoiceRecorderView voiceRecorderView;
     protected PageSetAdapter pageSetAdapter=null;
+
+    protected ChatExtendMenuView chatExtendMenuView=null;
+    protected ChatExtendMenuView.ChatExtendMenuItemClickListener chatExtendMenuItemClickListener=null;
+
+    protected String[] menuNames;
+    protected int[] menuIcons;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_chat_conversation,container,false);
+        View view=inflater.inflate(R.layout.fragment_chat_conversation, container, false);
         initViews(view);
         return view;
     }
 
+
     protected void initViews(View view){
         chatListView=(ListView)view.findViewById(R.id.lv_chat);
         chatInputEditTextView= (ChatInputEditTextView) view.findViewById(R.id.chat_input_edit);
+        chatInputEditTextView.setChatInputEditTextListener(this);
+        voiceRecorderView=(ChatVoiceRecorderView)view.findViewById(R.id.voice_recorder_view);
+        Bundle data=getArguments();
+        if(data!=null){
+            String voiceFileDir= data.getString("voice_file_dir");
+            menuIcons=data.getIntArray("extend_menu_icons");
+            menuNames=data.getStringArray("extend_menu_names");
+            voiceRecorderView.setVoiceFileDir(voiceFileDir);
+        }
         initChatInputEditTextView();
+    }
+
+    protected void initChatExtrendMenu(Context context){
+        if(menuIcons!=null&&menuNames!=null) {
+            View view = LayoutInflater.from(context).inflate(R.layout.layout_chat_extend_menu, null);
+            chatExtendMenuView = (ChatExtendMenuView) view.findViewById(R.id.chat_extend_menu);
+            for (int i = 0; i < menuNames.length; i++) {
+                chatExtendMenuView.registerMenuItem(menuNames[i], menuIcons[i], menuIcons[i], chatExtendMenuItemClickListener);
+            }
+            chatExtendMenuView.initWidgets();
+            chatInputEditTextView.addFuncView(view);
+        }
     }
 
     protected void initChatInputEditTextView(){
         final EmoticonsEditText emoticonsEditText=chatInputEditTextView.getEtChat();
         emoticonsEditText.addEmoticonFilter(new ExpressionFilter());
+        initChatExtrendMenu(getContext());
         pageSetAdapter=new PageSetAdapter();
         addDefaultEmoticonPageSetEntity(pageSetAdapter);
         addGifEmoticonPageSetEntity(pageSetAdapter);
@@ -148,6 +187,39 @@ public class ChatConversationFragment extends Fragment implements EmoticonClickL
 
     @Override
     public void onEmoticonClick(Object o, int actionType, boolean isDelBtn) {
+        EmoticonsEditText editText=chatInputEditTextView.getEtChat();
+        if(isDelBtn){
+            int action = KeyEvent.ACTION_DOWN;
+            int code = KeyEvent.KEYCODE_DEL;
+            KeyEvent event = new KeyEvent(action, code);
+            editText.onKeyDown(KeyEvent.KEYCODE_DEL, event);
+        }else{
+            String content = null;
+            if(o instanceof EmoticonEntity){
+                content = ((EmoticonEntity) o).getContent();
+            } else if(o instanceof EmoticonEntity){
+                content = ((EmoticonEntity)o).getContent();
+            }
+            if(TextUtils.isEmpty(content)){
+                return;
+            }
+            int index = editText.getSelectionStart();
+            Editable editable = editText.getText();
+            editable.insert(index, content);
+        }
+    }
 
+    @Override
+    public boolean onPressToSpeakBtnTouch(View v, MotionEvent event) {
+        return voiceRecorderView.onPressToSpeakBtnTouch(v, event, new ChatVoiceRecorderView.ChatVoiceRecorderCallback() {
+            @Override
+            public void onVoiceRecordComplete(String voiceFilePath, int voiceTimeLength) {
+
+            }
+        });
+    }
+
+    public void setChatExtendMenuItemClickListener(ChatExtendMenuView.ChatExtendMenuItemClickListener chatExtendMenuItemClickListener) {
+        this.chatExtendMenuItemClickListener = chatExtendMenuItemClickListener;
     }
 }

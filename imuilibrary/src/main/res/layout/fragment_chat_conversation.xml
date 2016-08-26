@@ -3,22 +3,27 @@
     android:id="@+id/chat_input_edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ListView
-        android:id="@+id/lv_chat"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="#00000000"
-        android:divider="@null"
-        android:fadingEdge="none"
-        android:fitsSystemWindows="true"
-        android:listSelector="#00000000"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollingCache="false"
-        android:smoothScrollbar="true"
-        android:stackFromBottom="true" />
-    <com.htt.imlibrary.views.widget.ChatVoiceRecorderView
-        android:id="@+id/voice_recorder_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_chat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:fitsSystemWindows="true"
+            android:listSelector="#00000000"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollingCache="false"
+            android:smoothScrollbar="true"
+            android:stackFromBottom="true" />
+        <com.htt.imlibrary.views.widget.ChatVoiceRecorderView
+            android:id="@+id/voice_recorder_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+    </FrameLayout>
 </com.htt.imlibrary.views.ChatInputEditTextView>

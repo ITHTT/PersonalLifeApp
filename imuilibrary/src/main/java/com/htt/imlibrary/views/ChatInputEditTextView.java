@@ -54,6 +54,7 @@ public class ChatInputEditTextView extends AutoHeightLayout implements View.OnCl
     protected EmoticonsToolBarView mEmoticonsToolBarView;
 
     protected boolean mDispatchKeyEventPreImeLock = false;
+    protected ChatInputEditTextListener listener=null;
 
 
     public ChatInputEditTextView(Context context) {
@@ -73,6 +74,14 @@ public class ChatInputEditTextView extends AutoHeightLayout implements View.OnCl
 
     public ChatInputEditTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    /**
+     * 设置主按钮栏相关listener
+     * @param listener
+     */
+    public void setChatInputEditTextListener(ChatInputEditTextListener listener){
+        this.listener = listener;
     }
 
     protected void initChatInputEditTextView(){
@@ -101,8 +110,18 @@ public class ChatInputEditTextView extends AutoHeightLayout implements View.OnCl
         mEmoticonsFuncView.setOnIndicatorListener(this);
         mEmoticonsToolBarView.setOnToolBarItemClickListener(this);
         mLyKvml.setOnFuncChangeListener(this);
-
         initEditView();
+
+        mBtnVoice.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(listener!=null){
+                    listener.onPressToSpeakBtnTouch(v,event);
+                }
+                return false;
+            }
+        });
+
     }
 
     protected void initEditView() {
@@ -225,6 +244,9 @@ public class ChatInputEditTextView extends AutoHeightLayout implements View.OnCl
         } else {
             onFuncChange(mLyKvml.getCurrentFuncKey());
         }
+        if (mLyKvml.getCurrentFuncKey() == FUNC_TYPE_APPPS) {
+            setFuncViewHeight(EmoticonsKeyboardUtils.dip2px(getContext(), 120));
+        }
     }
 
     public void addOnFuncKeyBoardListener(FuncLayout.OnFuncKeyBoardListener l) {
@@ -262,6 +284,7 @@ public class ChatInputEditTextView extends AutoHeightLayout implements View.OnCl
             toggleFuncView(FUNC_TYPE_EMOTION);
         } else if (i == R.id.btn_multimedia) {
             toggleFuncView(FUNC_TYPE_APPPS);
+            setFuncViewHeight(EmoticonsKeyboardUtils.dip2px(getContext(), 120));
         }
     }
 
@@ -358,5 +381,12 @@ public class ChatInputEditTextView extends AutoHeightLayout implements View.OnCl
         return mEmoticonsToolBarView;
     }
 
+    public interface ChatInputEditTextListener{
+        /**
+         * 长按说话按钮ontouch事件
+         * @return
+         */
+        boolean onPressToSpeakBtnTouch(View v, MotionEvent event);
+    }
 
 }
